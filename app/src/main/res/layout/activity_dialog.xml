@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.quancuteexample.officeworkout.DialogActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="350dip"
+        android:layout_height="280dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:textSize="25dip"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="1.Có 3 mức tập luyện: Cơ bản, trung bình và nâng cao, bạn hãy chọn mức phù hợp nhé.\n2.Trong quá trình tập có dấu hiệu mệt mỏi thì hãy nghỉ ngơi.\n3.Ăn uống đầy đủ và hợp lý." />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="NEXT" />
+</RelativeLayout>
