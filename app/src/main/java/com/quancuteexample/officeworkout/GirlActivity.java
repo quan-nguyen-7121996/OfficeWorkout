@@ -10,6 +10,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +28,7 @@ public class GirlActivity extends AppCompatActivity {
     private Intent intent;
     private ListView listView;
     public static List<WorkoutExcercise> listData;
+    private static CustomListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,38 +38,30 @@ public class GirlActivity extends AppCompatActivity {
         Bundle extras=intent.getExtras();
         listView =findViewById(R.id.girllistView);
         if(extras.getString("level").equals("basic")) {
-            listData=new ArrayList<WorkoutExcercise>();
-            WorkoutExcercise plank = new WorkoutExcercise("plank","20","https://img.aws.livestrongcdn.com/ls-article-image-640/cme/photography.prod.demandstudios.com/da320ae2-3ff6-4c3d-9036-dbb354179704.gif");
-            WorkoutExcercise pushup = new WorkoutExcercise("high plank", "30","https://img.aws.livestrongcdn.com/ls-article-image-640/cme/photography.prod.demandstudios.com/82f20dde-d703-4e73-85ef-0c67938f604c.gif");
-            WorkoutExcercise planche = new WorkoutExcercise("side plank","100","https://img.aws.livestrongcdn.com/ls-article-image-640/cme/photography.prod.demandstudios.com/659e2796-c353-4428-b2fa-421ed4062b20.gif");
-            listData.add(plank);
-            listData.add(pushup);
-            listData.add(planche);
+            listData=new ArrayList<>();
+            adapter=new CustomListAdapter(this,listData);
+            listView.setAdapter(adapter);
+            //ReadJSON("http://192.168.1.102/workoutDatabase/girlbasic.php");
+            ReadJSON("http://118.69.182.206:8880/quan/php/girlbasic.php");
 
-            listView.setAdapter(new CustomListAdapter(this,listData));
         }
         if(extras.getString("level").equals("inter")) {
+            listData=new ArrayList<>();
+            adapter=new CustomListAdapter(this,listData);
+            listView.setAdapter(adapter);
+            //ReadJSON("http://192.168.1.102/workoutDatabase/girlinter.php");
+            ReadJSON("http://118.69.182.206:8880/quan/php/girlinter.php");
 
-            listData=new ArrayList<WorkoutExcercise>();
-            WorkoutExcercise plank = new WorkoutExcercise("diamond","20","http://assets.menshealth.co.uk/main/assets/how-to-do-the-diamond-press-up.gif?mtime=1453475645");
-            WorkoutExcercise pushup = new WorkoutExcercise("decline push up", "30","https://d39ziaow49lrgk.cloudfront.net/wp-content/uploads/2015/07/Push_Up_8.gif");
-            WorkoutExcercise planche = new WorkoutExcercise("modified push up","100","https://d39ziaow49lrgk.cloudfront.net/wp-content/uploads/2015/07/Push_Up_11.gif");
-            listData.add(plank);
-            listData.add(pushup);
-            listData.add(planche);
 
-            listView.setAdapter(new CustomListAdapter(this,listData));
         }
         if(extras.getString("level").equals("master")) {
+            listData=new ArrayList<>();
+            adapter=new CustomListAdapter(this,listData);
+            listView.setAdapter(adapter);
+           // ReadJSON("http://192.168.1.102/workoutDatabase/girlmaster.php");
+            ReadJSON("http://118.69.182.206:8880/quan/php/girlmaster.php");
 
-            listData=new ArrayList<WorkoutExcercise>();
-            WorkoutExcercise plank = new WorkoutExcercise("squat","20","https://www.shape.com/sites/shape.com/files/styles/slide/public/poppin-plyo-jumps-1-.gif");
-            WorkoutExcercise pushup = new WorkoutExcercise("squat jump", "30","https://media.giphy.com/media/gkbrkEbG4jra0/giphy.gif");
-            WorkoutExcercise planche = new WorkoutExcercise("pistol squat","100","https://i.pinimg.com/originals/b1/4f/ae/b14fae2edbbc3bef318c280b9a134bb9.gif");
-            listData.add(plank);
-            listData.add(pushup);
-            listData.add(planche);
-            listView.setAdapter(new CustomListAdapter(this,listData));
+
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -75,5 +79,33 @@ public class GirlActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void ReadJSON(String url){
+        RequestQueue request= Volley.newRequestQueue(this);
+        final JsonArrayRequest array=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for(int i=0;i<response.length();i++){
+                    try {
+                        JSONObject object=response.getJSONObject(i);
+                        listData.add(new WorkoutExcercise(object.getString("Name"),object.getString("Reps"),object.getString("GifName")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(GirlActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+                })
+                ;
+        request.add(array);
+
     }
 }

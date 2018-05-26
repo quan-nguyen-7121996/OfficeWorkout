@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "54260182805",
+    "firebase_url": "https://officeworkout-1d877.firebaseio.com",
+    "project_id": "officeworkout-1d877",
+    "storage_bucket": "officeworkout-1d877.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54260182805:android:3c2815837cbb6805",
+        "android_client_info": {
+          "package_name": "com.quancuteexample.OfficeWorkout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54260182805-gbd9j16s8lgn4u9ua5oi2u2du9ov729j.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "54260182805-gbd9j16s8lgn4u9ua5oi2u2du9ov729j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEgxuPQJNHpiaJaocQqHKDgAhExszlDyY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
