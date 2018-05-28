@@ -10,21 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +34,12 @@ public class GirlActivity extends AppCompatActivity {
     private static CustomListAdapter adapter;
     LocalDatabase localDatabase;
 
+    TextView levelTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_girl);
+        levelTextView=findViewById(R.id.textView6);
         intent=getIntent();
         Bundle extras=intent.getExtras();
         listView =findViewById(R.id.girllistView);
@@ -51,6 +51,7 @@ public class GirlActivity extends AppCompatActivity {
         if(extras.getString("level").equals("basic")) {
             listData=new ArrayList<>();
             tableName="GirlBasic";
+            levelTextView.setText("Easy Level");
             adapter=new CustomListAdapter(this,listData);
             listView.setAdapter(adapter);
             //ReadJSON("http://192.168.1.102/workoutDatabase/girlbasic.php");
@@ -66,6 +67,7 @@ public class GirlActivity extends AppCompatActivity {
         if(extras.getString("level").equals("inter")) {
             listData=new ArrayList<>();
             tableName="GirlInter";
+            levelTextView.setText("Medium Level");
             adapter=new CustomListAdapter(this,listData);
             listView.setAdapter(adapter);
             //ReadJSON("http://192.168.1.102/workoutDatabase/girlinter.php");
@@ -80,6 +82,7 @@ public class GirlActivity extends AppCompatActivity {
         if(extras.getString("level").equals("master")) {
             listData=new ArrayList<>();
             tableName="GirlMaster";
+            levelTextView.setText("Hard Level");
             adapter=new CustomListAdapter(this,listData);
             listView.setAdapter(adapter);
            // ReadJSON("http://192.168.1.102/workoutDatabase/girlmaster.php");

@@ -7,34 +7,20 @@ import android.net.NetworkInfo;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +31,13 @@ public class BoyActivity extends AppCompatActivity {
     private static CustomListAdapter adapter;
     public static List<WorkoutExcercise> listData;
     LocalDatabase localDatabase;
+    TextView levelTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boy);
         intent= getIntent();
+        levelTextView=findViewById(R.id.textView5);
         Bundle extras=intent.getExtras();
         listView =findViewById(R.id.boylistView);
         localDatabase=new LocalDatabase(this,"BoyExercise.sqlite",null,2);
@@ -63,6 +51,7 @@ public class BoyActivity extends AppCompatActivity {
             adapter=new CustomListAdapter(this,listData);
             listView.setAdapter(adapter);
             tableName="BoyBasic";
+            levelTextView.setText("Easy Level");
             //ReadJSON("http://192.168.1.102/workoutDatabase/boybasic.php");
             //ReadJSON("http://118.69.182.206:8880/quan/php/boybasic.php");
             if(connectionAvailable()==true) {
@@ -76,6 +65,7 @@ public class BoyActivity extends AppCompatActivity {
             listData=new ArrayList<>();
             adapter=new CustomListAdapter(this,listData);
             tableName="BoyInter";
+            levelTextView.setText("Medium Level");
             listView.setAdapter(adapter);
             //ReadJSON("http://192.168.1.102/workoutDatabase/boyinter.php");
             //ReadJSON("http://118.69.182.206:8880/quan/php/boyinter.php");
@@ -90,6 +80,7 @@ public class BoyActivity extends AppCompatActivity {
             listData=new ArrayList<>();
             adapter=new CustomListAdapter(this,listData);
             listView.setAdapter(adapter);
+            levelTextView.setText("Hard Level");
             tableName="BoyMaster";
             //ReadJSON("http://192.168.1.102/workoutDatabase/boymaster.php");
             //ReadJSON("http://118.69.182.206:8880/quan/php/boymaster.php");
