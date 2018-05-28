@@ -17,15 +17,15 @@
 
     <Button
         android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="18dp"
         android:layout_marginEnd="13dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:textColor="@color/colorPrimaryDark"
-        android:text="NEXT" />
+        android:background="@drawable/finger" />
 
     <TextView
         android:id="@+id/textView7"
@@ -34,7 +34,7 @@
         android:layout_below="@+id/gifImageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
-        android:textSize="20dip"
+        android:textSize="25dip"
          />
 
     <TextView
@@ -43,6 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView7"
         android:layout_centerHorizontal="true"
-        android:textSize="20dip" />
+        android:textSize="25dip" />
 
 </RelativeLayout>
